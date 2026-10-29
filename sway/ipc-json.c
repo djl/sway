@@ -773,6 +773,11 @@ static void ipc_json_describe_container(struct sway_container *c, json_object *o
 
 	json_object_object_add(object, "marks", marks);
 
+	if (c->border_color) {
+		json_object_object_add(object, "border_color",
+				json_object_new_string(c->border_color));
+	}
+
 	if (c->view) {
 		ipc_json_describe_view(c, object);
 	}

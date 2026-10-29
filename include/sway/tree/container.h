@@ -101,6 +101,9 @@ struct sway_container {
 
 	char *title_format;
 
+	// Overrides the client.* child_border color, or NULL
+	char *border_color;
+
 	enum sway_container_layout prev_split_layout;
 
 	// Whether stickiness has been enabled on this container. Use

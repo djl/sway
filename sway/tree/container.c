@@ -24,6 +24,7 @@
 #include "pango.h"
 #include "log.h"
 #include "stringop.h"
+#include "util.h"
 
 static struct wlr_scene_rect *alloc_rect_node(struct wlr_scene_tree *parent,
 		bool *failed) {
@@ -211,9 +212,16 @@ void container_update(struct sway_container *con) {
 		layout = con->current.workspace->current.layout;
 	}
 
+	float child_border[4];
+	memcpy(child_border, colors->child_border, sizeof(child_border));
+	uint32_t color;
+	if (con->border_color && parse_color(con->border_color, &color)) {
+		color_to_rgba(child_border, color);
+	}
+
 	float bottom[4], right[4];
-	memcpy(bottom, colors->child_border, sizeof(bottom));
-	memcpy(right, colors->child_border, sizeof(right));
+	memcpy(bottom, child_border, sizeof(bottom));
+	memcpy(right, child_border, sizeof(right));
 
 	if (!container_is_current_floating(con) && siblings && siblings->length == 1) {
 		if (layout == L_HORIZ) {
@@ -235,9 +243,9 @@ void container_update(struct sway_container *con) {
 	}
 
 	if (con->view) {
-		scene_rect_set_color(con->border.top, colors->child_border, alpha);
+		scene_rect_set_color(con->border.top, child_border, alpha);
 		scene_rect_set_color(con->border.bottom, bottom, alpha);
-		scene_rect_set_color(con->border.left, colors->child_border, alpha);
+		scene_rect_set_color(con->border.left, child_border, alpha);
 		scene_rect_set_color(con->border.right, right, alpha);
 	}
 
@@ -455,6 +463,7 @@ void container_destroy(struct sway_container *con) {
 	free(con->title);
 	free(con->formatted_title);
 	free(con->title_format);
+	free(con->border_color);
 	list_free(con->pending.children);
 	list_free(con->current.children);
 

@@ -113,6 +113,14 @@ They are expected to be used with *bindsym* or at runtime through *swaymsg*(1).
 *border* toggle
 	Cycles through the available border styles.
 
+*border_color* <#RRGGBB|#RRGGBBAA|none>
+	Overrides the _child_border_ color of the focused window, regardless of
+	whether it is focused, unfocused or urgent. _none_ reverts to the
+	*client.<class>* colors. This command is typically used with *for_window*
+	criteria. For example:
+
+		for_window [app_id="firefox"] border_color #ff0000
+
 *exit*
 	Exit sway and end your Wayland session.
 

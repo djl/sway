@@ -359,6 +359,10 @@ node and will have the following properties:
 |- marks
 :  array
 :  List of marks assigned to the node
+|- border_color
+:  string
+:  (Only containers) The per-window border color set by the _border_color_
+   command. Only present if set
 |- focused
 :  boolean
 :  Whether the node is currently focused by the default seat (_seat0_)

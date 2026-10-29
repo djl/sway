@@ -114,6 +114,7 @@ static const struct cmd_handler config_handlers[] = {
 static const struct cmd_handler command_handlers[] = {
 	{ "allow_tearing", cmd_allow_tearing },
 	{ "border", cmd_border },
+	{ "border_color", cmd_border_color },
 	{ "create_output", cmd_create_output },
 	{ "exit", cmd_exit },
 	{ "floating", cmd_floating },
